@@ -5,7 +5,8 @@ module BulldoggyThor
   class CLI < ::Thor
     desc "add_task DESCRIPTION", "Type a task to create with DESCRIPTION"
     def add_task(description)
-      Bulldoggy.add_task(description)
+      task = Bulldoggy.add_task(description)
+      puts "id: #{task.id}, description: #{task.description}"
     end
 
     desc "remove_task TASK_ID", "Removes a task with TASK_ID"
@@ -15,7 +16,8 @@ module BulldoggyThor
 
     desc "fetch", "fetches all tasks"
     def fetch
-      Bulldoggy.fetch
+      tasks = Bulldoggy.fetch
+      puts tasks
     end
 
     desc "check_task TASK_ID", "Mark a task as done"

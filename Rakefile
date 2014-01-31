@@ -1,6 +1,6 @@
 task :default => [:test]
 
-desc "Runs API tests"
+desc "Runs CLI tests"
 task :test do
-  ruby "test/bulldoggy-thor/api_test.rb"
+  ruby "test/bulldoggy-thor/cli_test.rb"
 end

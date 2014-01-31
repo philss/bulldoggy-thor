@@ -2,7 +2,7 @@ require 'thor'
 require 'bulldoggy'
 
 module BulldoggyThor
-  class API < ::Thor
+  class CLI < ::Thor
     desc "add_task DESCRIPTION", "Type a task to create with DESCRIPTION"
     def add_task(description)
       Bulldoggy.add_task(description)
@@ -30,4 +30,4 @@ module BulldoggyThor
   end
 end
 
-BulldoggyThor::API.start(ARGV)
+BulldoggyThor::CLI.start(ARGV)

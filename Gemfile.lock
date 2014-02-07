@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     bulldoggy (0.0.7.alpha)
+    bulldoggy-filesystem (0.0.1)
+      bulldoggy (~> 0.0.7.alpha)
     rake (10.1.1)
     thor (0.18.1)
 
@@ -10,5 +12,6 @@ PLATFORMS
 
 DEPENDENCIES
   bulldoggy (~> 0.0.7.alpha)
+  bulldoggy-filesystem
   rake
   thor

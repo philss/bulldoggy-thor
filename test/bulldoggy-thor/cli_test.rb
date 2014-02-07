@@ -4,6 +4,8 @@ require './lib/bulldoggy-thor/cli'
 module BulldoggyThor
   class CLITest < Test::Unit::TestCase
     def setup
+      repository = Bulldoggy::Repositories::InMemory::Tasks.new
+      Bulldoggy::Repository.register :task, repository
       @task_name = "Read Uncle Bob Articles"
       @cli = CLI.new
     end

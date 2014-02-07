@@ -1,8 +1,15 @@
 require 'thor'
 require 'bulldoggy'
+require 'bulldoggy-filesystem'
+
+BulldoggyFilesystem::Repositories::Tasks.filename = './.tasks.yaml'
+
+repo = BulldoggyFilesystem::Repositories::Tasks.new
+Bulldoggy::Repository.register :task, repo
 
 module BulldoggyThor
   class CLI < ::Thor
+
     desc "add_task DESCRIPTION", "Type a task to create with DESCRIPTION"
     def add_task(description)
       task = Bulldoggy.add_task(description)
@@ -13,7 +20,7 @@ module BulldoggyThor
     def remove_task(task_id)
       task = fetch_by_task_id(task_id)
       if task
-        puts "Removing task #{task.description}"
+        puts "Removing task #{task.fetch(:description)}"
         Bulldoggy.remove_task(task_id)
       else
         puts "Task with id #{task_id} not found"
@@ -26,7 +33,7 @@ module BulldoggyThor
       puts "Tasks count: #{tasks.size}"
 
       tasks.each do |task|
-        log_task(task)
+        puts "id: #{task.fetch(:id)}, description: #{task.fetch(:description)}, done: #{task.fetch(:done)}"
       end
     end
 
@@ -34,7 +41,7 @@ module BulldoggyThor
     def check_task(task_id)
       task = fetch_by_task_id(task_id)
       if task
-        puts "Checking task #{task.description}"
+        puts "Checking task #{task.fetch(:description)}"
         Bulldoggy.check_task(task_id)
       else
         puts "Task with id #{task_id} not found"
@@ -59,7 +66,9 @@ module BulldoggyThor
     end
 
     def fetch_by_task_id(task_id)
-      Bulldoggy.fetch.detect {|task| task.id == task_id }
+      Bulldoggy.fetch.detect do |task|
+        task.fetch(:id).to_i == task_id.to_i
+      end
     end
   end
 end
